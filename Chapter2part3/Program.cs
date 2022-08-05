@@ -1,16 +1,32 @@
-﻿program p1 = new program();
-int[] values;
-Console.WriteLine(p1.ComputeSum(22, 32, 55));
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class program
+namespace Variable_length_parameter_list
 {
-    int sum = 0;
-    public int ComputeSum(params int[] values)
+    internal class Sum
     {
-        for (int i = 0; i < values.Length; i++)
+        int sum;
+        void Process(string prefix, params int[] values)
         {
-            sum += values[i];
+            sum = 0;
+            for (int i = 0; i < values.Length; i++)
+                sum = sum + values[i];
+            Console.WriteLine($"Sum:{sum}");
         }
-        return sum;
+        void Test()
+        {
+            Process("data");
+            Process("data", 1);
+            Process("data", 1, 2, 3);
+            Process("data", new int[] { 1, 2, 3, 4 });
+        }
+        public static void Main()
+        {
+            Sum s = new Sum();
+            s.Test();
+        }
     }
 }
